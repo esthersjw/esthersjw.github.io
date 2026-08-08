@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ESTHER 不二的创作工具库">
+  <title>不二的工具库 · ESTHER</title>
+  <style>
+    :root {
+      --cream: #fefcf6;
+      --paper: #fffdf6;
+      --ink: #1a1a2e;
+      --muted: #5f6170;
+      --blue: #2b7fd8;
+      --yellow: #f4d758;
+      --red: #e84a5f;
+      --line: rgba(26,26,46,.16);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--cream);
+      background-image: radial-gradient(circle, rgba(43,127,216,.12) 1px, transparent 1.2px);
+      background-size: 26px 26px;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+    ::selection { background: var(--yellow); color: var(--ink); }
+    a { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 5; height: 58px;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      border-bottom: 2px solid var(--ink); background: rgba(254,252,246,.95);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 950; letter-spacing: .04em; }
+    .brand-mark { width: 22px; height: 22px; display: grid; place-items: center; border: 2px solid var(--ink); background: var(--yellow); font: 900 12px/1 Georgia, serif; transform: rotate(-6deg); }
+    .top-note { color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    main { padding: clamp(48px, 9vw, 112px) 0 76px; }
+    .intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(260px, .7fr); gap: clamp(36px, 8vw, 120px); align-items: end; margin-bottom: clamp(48px, 8vw, 92px); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 18px; color: var(--red); font-size: 12px; font-weight: 950; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+    h1 { max-width: 720px; margin: 0; font: 900 clamp(3.1rem, 8vw, 7rem)/.88 Georgia, "Noto Serif SC", serif; letter-spacing: -.08em; }
+    h1 em { color: var(--blue); font-style: normal; }
+    .intro-copy { border-top: 4px solid var(--ink); padding-top: 17px; }
+    .intro-copy p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.85; }
+    .intro-copy strong { display: block; margin-bottom: 7px; color: var(--ink); font-size: 18px; }
+    .tools-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .tools-head h2 { margin: 0; font-size: 24px; letter-spacing: -.04em; }
+    .tools-head p { margin: 0; color: var(--muted); font-size: 12px; font-weight: 800; }
+    .tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .tool-card { position: relative; min-height: 330px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; padding: clamp(24px, 4vw, 42px); border: 2px solid var(--ink); background: var(--paper); box-shadow: 7px 7px 0 var(--ink); text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .tool-card:hover, .tool-card:focus-visible { transform: translate(3px, 3px); box-shadow: 4px 4px 0 var(--ink); }
+    .tool-card:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+    .tool-card::after { position: absolute; right: 23px; top: 13px; color: var(--ink); font: 900 82px/.8 Georgia, serif; opacity: .09; }
+    .tool-card.write::after { content: "01"; }
+    .tool-card.pic::after { content: "02"; }
+    .tool-card.write { background: #fff8dc; }
+    .tool-card.pic { background: #eaf2ff; }
+    .tool-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .tool-number { color: var(--red); font: italic 900 18px/1 Georgia, serif; }
+    .tool-status { padding: 6px 9px; border: 1px solid var(--ink); background: var(--paper); font-size: 11px; font-weight: 950; letter-spacing: .07em; }
+    .tool-card h3 { max-width: 420px; margin: 32px 0 12px; font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: .98; letter-spacing: -.07em; }
+    .tool-card p { max-width: 390px; margin: 0; color: var(--muted); line-height: 1.75; }
+    .tool-open { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 34px; padding-top: 15px; border-top: 1px solid var(--line); font-size: 13px; font-weight: 950; }
+    .tool-open span:last-child { font-size: 24px; line-height: 1; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 22px 0 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 28px, 620px); }
+      .top-note { display: none; }
+      .intro { grid-template-columns: 1fr; gap: 32px; }
+      h1 { max-width: 470px; }
+      .tool-grid { grid-template-columns: 1fr; }
+      .tool-card { min-height: 285px; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+      <div class="brand"><span class="brand-mark">不</span><span>ESTHER / TOOL LIBRARY</span></div>
+      <span class="top-note">小工具，认真做</span>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">ESTHER'S LITTLE WORKSHOP</p>
+        <h1 id="page-title">把想法<br><em>做成工具。</em></h1>
+      </div>
+      <div class="intro-copy">
+        <strong>这里是我的工具库</strong>
+        <p>一些为写作、排版和视觉创作做的小工具。点击卡片，直接开始使用。</p>
+      </div>
+    </section>
+    <section aria-labelledby="tools-title">
+      <div class="tools-head"><h2 id="tools-title">选择一个工具</h2><p>02 TOOLS / READY TO PLAY</p></div>
+      <div class="tool-grid">
+        <a class="tool-card write" href="/write/" aria-label="打开写了就发">
+          <div class="tool-meta"><span class="tool-number">01 / WRITE</span><span class="tool-status">图文编辑</span></div>
+          <div><h3>写了<br>就发</h3><p>把文字、图片和版式整理成一张可以直接发布的图文卡片。</p></div>
+          <div class="tool-open"><span>打开工具</span><span aria-hidden="true">↗</span></div>
+        </a>
+        <a class="tool-card pic" href="/pic/" aria-label="打开不二的小画框">
+          <div class="tool-meta"><span class="tool-number">02 / COLLAGE</span><span class="tool-status">拼贴创作</span></div>
+          <div><h3>不二的<br>小画框</h3><p>用胖字体、照片和拼贴素材，做一张属于自己的小海报。</p></div>
+          <div class="tool-open"><span>打开工具</span><span aria-hidden="true">↗</span></div>
+        </a>
+      </div>
+    </section>
+  </main>
+  <footer class="shell"><span>© ESTHER 不二</span><span>made for making</span></footer>
+</body>
+</html>
