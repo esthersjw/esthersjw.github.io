@@ -1150,8 +1150,8 @@
     .skill-story-link { flex:0 0 auto; color:var(--blue-deep); font-family:'Fira Code',monospace; font-size:.72rem; text-decoration:none; }
     .skill-story-link::before { content:'↗'; margin-right:7px; color:var(--yellow); font-size:.95rem; font-weight:900; }
     .skill-story-link:hover { background:linear-gradient(transparent 60%,rgba(244,215,88,.55) 60%); }
-    .skill-story-frame-wrap { width:100vw; overflow:hidden; border-top:1px solid rgba(26,26,46,.08); background:var(--paper); }
-    .skill-story-frame { display:block; width:100vw; height:calc(100svh - 145px); border:0; background:var(--paper); }
+    .skill-story-frame-wrap { width:min(94vw,1480px); margin:0 auto; overflow:hidden; border-top:1px solid rgba(26,26,46,.08); background:var(--paper); }
+    .skill-story-frame { display:block; width:100%; height:min(72vh,720px); min-height:520px; border:0; background:var(--paper); }
 
     /* 总路径 · 蓝底单线旅程 */
     .path-screen { background:var(--blue); color:var(--cream); }
@@ -1462,7 +1462,7 @@
       .deploy-lane { min-height:118px; }
       .database-side { min-height:220px; padding-top:20px; padding-bottom:20px; }
       .database-build-step { min-height:230px; padding-top:20px; padding-bottom:20px; }
-      .skill-story-frame { height:calc(100svh - 132px); }
+      .skill-story-frame { height:min(70vh,640px); min-height:500px; }
       .path-trail { margin-top:46px; }
       .path-equation { margin-top:44px; }
       .closing-column { padding-top:18px; padding-bottom:18px; }
@@ -1514,7 +1514,7 @@
       .agent-request { grid-template-columns:1fr; }
       .agent-request .copy-instruction { justify-self:start; }
       .skill-story-head { align-items:flex-start; flex-direction:column; gap:7px; padding-bottom:12px; }
-      .skill-story-frame { height:calc(100svh - 166px); }
+      .skill-story-frame { height:min(68vh,560px); min-height:460px; }
       .path-trail { grid-template-columns:repeat(2,1fr); }
     }
   </style>
